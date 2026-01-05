@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LottoNumberRandomizer.Presentation.ViewModels"
+             xmlns:model="clr-namespace:LottoNumberRandomizer.Model.DTOs;assembly=LottoNumberRandomizer.Model"
+             xmlns:res="clr-namespace:LottoNumberRandomizer.Presentation.Resources.Localization"
+             xmlns:converters="clr-namespace:LottoNumberRandomizer.Presentation.Converters"
+             x:Class="LottoNumberRandomizer.Presentation.Views.LottoNumbersPage"
+             x:DataType="vm:LottoNumbersViewModel"
+             Title="{x:Static res:AppResources.LottoNumbers}">
+    
+    <ContentPage.Resources>
+        <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+    </ContentPage.Resources>
+    
+    <Grid RowDefinitions="Auto,*" Padding="20">
+        <Button 
+            Grid.Row="0"
+            Text="{x:Static res:AppResources.GenerateNumbers}"
+            Command="{Binding GenerateNumbersCommand}"
+            HorizontalOptions="Center"
+            Margin="0,10,0,20" />
+        
+        <ActivityIndicator 
+            Grid.Row="1"
+            IsRunning="{Binding IsLoading}"
+            IsVisible="{Binding IsLoading}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+        
+        <CollectionView 
+            Grid.Row="1"
+            ItemsSource="{Binding LottoNumbers}"
+            IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+            SelectionMode="None">
+            <CollectionView.Header>
+                <Grid ColumnDefinitions="*,*" Padding="10" BackgroundColor="LightGray">
+                    <Label Grid.Column="0" Text="{x:Static res:AppResources.Number}" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                    <Label Grid.Column="1" Text="{x:Static res:AppResources.Count}" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                </Grid>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:LottoNumberDto">
+                    <Grid ColumnDefinitions="*,*" Padding="10" BackgroundColor="White">
+                        <BoxView Grid.ColumnSpan="2" Color="LightGray" HeightRequest="1" VerticalOptions="End" />
+                        <Label Grid.Column="0" Text="{Binding Number}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                        <Label Grid.Column="1" Text="{Binding Count}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
