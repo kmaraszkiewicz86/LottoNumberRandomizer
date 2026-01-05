@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Number" xml:space="preserve">
-    <value>Number</value>
+    <value>Liczba w lotto</value>
   </data>
   <data name="Count" xml:space="preserve">
-    <value>Count</value>
+    <value>Ilość wytypowania liczby</value>
   </data>
   <data name="LottoNumbers" xml:space="preserve">
-    <value>Lotto Numbers</value>
+    <value>Ostanie liczby lotto</value>
   </data>
   <data name="FetchNumbersFromApi" xml:space="preserve">
-    <value>Fetch numbers from lotto api</value>
+    <value>Pobierz liczby a Lotto API</value>
   </data>
 </root>

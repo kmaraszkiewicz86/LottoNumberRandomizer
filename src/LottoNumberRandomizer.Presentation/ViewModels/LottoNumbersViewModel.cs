@@ -7,20 +7,13 @@ using System.Collections.ObjectModel;
 
 namespace LottoNumberRandomizer.Presentation.ViewModels;
 
-public partial class LottoNumbersViewModel : ObservableObject
+public partial class LottoNumbersViewModel(ISimpleMediator _simpleMediator) : ObservableObject
 {
-    private readonly ISimpleMediator _simpleMediator;
-
     [ObservableProperty]
     private ObservableCollection<LottoNumberDto> lottoNumbers = new();
 
     [ObservableProperty]
     private bool isLoading;
-
-    public LottoNumbersViewModel(ISimpleMediator simpleMediator)
-    {
-        _simpleMediator = simpleMediator;
-    }
 
     [RelayCommand]
     private async Task GenerateNumbersAsync()
@@ -29,7 +22,7 @@ public partial class LottoNumbersViewModel : ObservableObject
         try
         {
             var query = new GetLottoNumbersQuery();
-            var result = await Task.Run(() => _simpleMediator.GetQuery(query));
+            var result = await _simpleMediator.GetQueryAsync(query);
             
             LottoNumbers.Clear();
             foreach (var number in result)

@@ -1,5 +1,7 @@
+using LottoNumberRandomizer.ApplicationLayer.Queries;
 using LottoNumberRandomizer.Infrastructure.Services;
-using Microsoft.Extensions.DependencyInjection;
+using LottoNumberRandomizer.Presentation.ViewModels;
+using LottoNumberRandomizer.Presentation.Views;
 using SimpleCqrs;
 
 namespace LottoNumberRandomizer.Configuration;
@@ -15,13 +17,13 @@ public static class DependencyInjection
         services.AddScoped<ILottoNumberService, LottoNumberService>();
         
         // Register SimpleCqrs
-        services.ConfigureSimpleCqrs(typeof(ApplicationLayer.Queries.GetLottoNumbersQuery).Assembly);
+        services.ConfigureSimpleCqrs(typeof(GetLottoNumbersQuery).Assembly);
         
         // Register ViewModels
-        services.AddTransient<Presentation.ViewModels.LottoNumbersViewModel>();
+        services.AddTransient<LottoNumbersViewModel>();
         
         // Register Views
-        services.AddTransient<Presentation.Views.LottoNumbersPage>();
+        services.AddTransient<LottoNumbersPage>();
         
         return services;
     }
