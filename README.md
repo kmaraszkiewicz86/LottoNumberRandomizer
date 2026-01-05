@@ -41,9 +41,12 @@ dotnet build
 
 ### Running
 
-The application targets Android. You can run it using:
+The application targets Android. You can run it on an emulator or device using Visual Studio, Visual Studio for Mac, or VS Code with the .NET MAUI extension.
+
+Alternatively, use the command line:
 
 ```bash
-dotnet build -t:Run -f net10.0-android
+dotnet build -f net10.0-android
+# Then deploy to a device or emulator using your IDE
 ```
 
