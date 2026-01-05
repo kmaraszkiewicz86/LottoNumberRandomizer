@@ -1,8 +1,0 @@
-﻿<maui:MauiWinUIApplication
-    x:Class="LottoNumberRandomizer.UI.WinUI.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:maui="using:Microsoft.Maui"
-    xmlns:local="using:LottoNumberRandomizer.UI.WinUI">
-
-</maui:MauiWinUIApplication>

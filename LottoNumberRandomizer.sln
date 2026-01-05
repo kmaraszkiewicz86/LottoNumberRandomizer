@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.UI", "LottoNumberRandomizer.UI\LottoNumberRandomizer.UI.csproj", "{74BEA488-FD6E-4DEA-856E-6E1A8930CF7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.UI", "src\LottoNumberRandomizer.UI\LottoNumberRandomizer.UI.csproj", "{74BEA488-FD6E-4DEA-856E-6E1A8930CF7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.Presentation", "LottoNumberRandomizer.Presentation\LottoNumberRandomizer.Presentation.csproj", "{161A03FA-FB63-4A79-9C8F-19604153928F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.Presentation", "src\LottoNumberRandomizer.Presentation\LottoNumberRandomizer.Presentation.csproj", "{161A03FA-FB63-4A79-9C8F-19604153928F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.ApplicationLayer", "LottoNumberRandomizer.ApplicationLayer\LottoNumberRandomizer.ApplicationLayer.csproj", "{0543F993-0777-4777-927B-1F29EFE1B38D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.ApplicationLayer", "src\LottoNumberRandomizer.ApplicationLayer\LottoNumberRandomizer.ApplicationLayer.csproj", "{0543F993-0777-4777-927B-1F29EFE1B38D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.Domain", "LottoNumberRandomizer.Domain\LottoNumberRandomizer.Domain.csproj", "{6F68794E-5385-4EDD-BFBB-1BAD8301740C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.Domain", "src\LottoNumberRandomizer.Domain\LottoNumberRandomizer.Domain.csproj", "{6F68794E-5385-4EDD-BFBB-1BAD8301740C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.Infrastructure", "LottoNumberRandomizer.Infrastructure\LottoNumberRandomizer.Infrastructure.csproj", "{19ECA5F1-3785-427E-950C-19841A58FCB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.Infrastructure", "src\LottoNumberRandomizer.Infrastructure\LottoNumberRandomizer.Infrastructure.csproj", "{19ECA5F1-3785-427E-950C-19841A58FCB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.Model", "LottoNumberRandomizer.Model\LottoNumberRandomizer.Model.csproj", "{532D443C-3565-4799-8BAA-D75A0FE7B623}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.Model", "src\LottoNumberRandomizer.Model\LottoNumberRandomizer.Model.csproj", "{532D443C-3565-4799-8BAA-D75A0FE7B623}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.Configuration", "LottoNumberRandomizer.Configuration\LottoNumberRandomizer.Configuration.csproj", "{708844EF-780C-4B36-A49E-F42ED5DD1385}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottoNumberRandomizer.Configuration", "src\LottoNumberRandomizer.Configuration\LottoNumberRandomizer.Configuration.csproj", "{708844EF-780C-4B36-A49E-F42ED5DD1385}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
