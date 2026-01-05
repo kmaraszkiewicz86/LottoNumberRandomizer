@@ -1,4 +1,5 @@
 using LottoNumberRandomizer.Model.DTOs;
+using LottoNumberRandomizer.Model.Queries;
 
 namespace LottoNumberRandomizer.Infrastructure.Services;
 
@@ -11,7 +12,7 @@ public class LottoNumberService : ILottoNumberService
         _httpClientFactory = httpClientFactory;
     }
 
-    public async Task<IEnumerable<LottoNumberDto>> GenerateRandomNumbersAsync()
+    public async Task<IEnumerable<LottoNumberDto>> GenerateRandomNumbersAsync(GetLottoNumbersQuery query)
     {
         // Simulate async operation with HttpClient
         var httpClient = _httpClientFactory.CreateClient();

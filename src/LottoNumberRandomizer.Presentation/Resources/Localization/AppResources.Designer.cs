@@ -70,11 +70,47 @@ namespace LottoNumberRandomizer.Presentation.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date from.
+        /// </summary>
+        internal static string DateFrom {
+            get {
+                return ResourceManager.GetString("DateFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date Range is required.
+        /// </summary>
+        internal static string DateRangeValidationError {
+            get {
+                return ResourceManager.GetString("DateRangeValidationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fetch numbers from lotto api.
         /// </summary>
         internal static string FetchNumbersFromApi {
             get {
                 return ResourceManager.GetString("FetchNumbersFromApi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last draws count.
+        /// </summary>
+        internal static string LastDrawsCount {
+            get {
+                return ResourceManager.GetString("LastDrawsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last draws is required.
+        /// </summary>
+        internal static string LastDrawsCountValidationError {
+            get {
+                return ResourceManager.GetString("LastDrawsCountValidationError", resourceCulture);
             }
         }
         
@@ -93,6 +129,42 @@ namespace LottoNumberRandomizer.Presentation.Resources.Localization {
         internal static string Number {
             get {
                 return ResourceManager.GetString("Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One month.
+        /// </summary>
+        internal static string OneMonth {
+            get {
+                return ResourceManager.GetString("OneMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One year.
+        /// </summary>
+        internal static string OneYear {
+            get {
+                return ResourceManager.GetString("OneYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Six months.
+        /// </summary>
+        internal static string SixMonths {
+            get {
+                return ResourceManager.GetString("SixMonths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2 months.
+        /// </summary>
+        internal static string TwoMonths {
+            get {
+                return ResourceManager.GetString("TwoMonths", resourceCulture);
             }
         }
     }

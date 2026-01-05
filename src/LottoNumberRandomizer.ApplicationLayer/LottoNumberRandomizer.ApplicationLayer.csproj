@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LottoNumberRandomizer.Infrastructure\LottoNumberRandomizer.Infrastructure.csproj" />
+    <ProjectReference Include="..\LottoNumberRandomizer.Domain\LottoNumberRandomizer.Domain.csproj" />
     <ProjectReference Include="..\LottoNumberRandomizer.Model\LottoNumberRandomizer.Model.csproj" />
   </ItemGroup>
 

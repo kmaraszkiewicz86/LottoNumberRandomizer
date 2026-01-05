@@ -1,5 +1,5 @@
-using LottoNumberRandomizer.ApplicationLayer.Queries;
 using LottoNumberRandomizer.Infrastructure.Services;
+using LottoNumberRandomizer.Model.Queries;
 using LottoNumberRandomizer.Presentation.ViewModels;
 using LottoNumberRandomizer.Presentation.Views;
 using SimpleCqrs;

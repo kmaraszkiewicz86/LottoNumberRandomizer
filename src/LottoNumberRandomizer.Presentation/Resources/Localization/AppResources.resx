@@ -129,4 +129,28 @@
   <data name="FetchNumbersFromApi" xml:space="preserve">
     <value>Fetch numbers from lotto api</value>
   </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>Date from</value>
+  </data>
+  <data name="LastDrawsCount" xml:space="preserve">
+    <value>Last draws count</value>
+  </data>
+  <data name="OneMonth" xml:space="preserve">
+    <value>One month</value>
+  </data>
+  <data name="TwoMonths" xml:space="preserve">
+    <value>2 months</value>
+  </data>
+  <data name="SixMonths" xml:space="preserve">
+    <value>Six months</value>
+  </data>
+  <data name="OneYear" xml:space="preserve">
+    <value>One year</value>
+  </data>
+  <data name="LastDrawsCountValidationError" xml:space="preserve">
+    <value>Last draws is required</value>
+  </data>
+  <data name="DateRangeValidationError" xml:space="preserve">
+    <value>Date Range is required</value>
+  </data>
 </root>

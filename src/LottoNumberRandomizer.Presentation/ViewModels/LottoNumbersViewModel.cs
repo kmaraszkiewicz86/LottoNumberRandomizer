@@ -1,7 +1,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using LottoNumberRandomizer.ApplicationLayer.Queries;
 using LottoNumberRandomizer.Model.DTOs;
+using LottoNumberRandomizer.Model.Enums;
+using LottoNumberRandomizer.Model.Queries;
+using LottoNumberRandomizer.Presentation.Models;
+using LottoNumberRandomizer.Presentation.Resources.Localization;
 using SimpleCqrs;
 using System.Collections.ObjectModel;
 
@@ -15,13 +18,49 @@ public partial class LottoNumbersViewModel(ISimpleMediator _simpleMediator) : Ob
     [ObservableProperty]
     private bool isLoading;
 
+    [ObservableProperty]
+    private int lastDrawsCount = 10;
+
+    [ObservableProperty]
+    private LottoDateRangeOption selectedDateRange = default!;
+
+    [ObservableProperty]
+    private string? errorMessage;
+
+    public IReadOnlyList<LottoDateRangeOption> AvailableDateRanges { get; } =
+    [
+        new(LottoDateRange.OneMonth, AppResources.OneMonth),
+        new(LottoDateRange.TwoMonths, AppResources.TwoMonths),
+        new(LottoDateRange.SixMonths, AppResources.SixMonths),
+        new(LottoDateRange.OneYear, AppResources.OneYear)
+    ];
+
     [RelayCommand]
     private async Task GenerateNumbersAsync()
     {
+        ErrorMessage = null;
+
+        if (LastDrawsCount <= 0 || LastDrawsCount > 20)
+        {
+            ErrorMessage = AppResources.LastDrawsCountValidationError;
+            return;
+        }
+
+        if (SelectedDateRange is null)
+        {
+            ErrorMessage = AppResources.DateRangeValidationError;
+            return;
+        }
+
         IsLoading = true;
         try
         {
-            var query = new GetLottoNumbersQuery();
+            var query = new GetLottoNumbersQuery
+            {
+                LastDrawsCount = LastDrawsCount,
+                DateRange = SelectedDateRange.Value
+            };
+
             var result = await _simpleMediator.GetQueryAsync(query);
             
             LottoNumbers.Clear();
