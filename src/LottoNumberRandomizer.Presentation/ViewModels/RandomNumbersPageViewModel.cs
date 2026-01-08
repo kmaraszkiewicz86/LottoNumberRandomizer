@@ -10,19 +10,22 @@ using System.Collections.ObjectModel;
 
 namespace LottoNumberRandomizer.Presentation.ViewModels;
 
-public partial class LottoNumbersViewModel(ISimpleMediator _simpleMediator) : ObservableObject
+public partial class RandomNumbersPageViewModel(ISimpleMediator _simpleMediator) : ObservableObject
 {
     [ObservableProperty]
-    private ObservableCollection<LottoNumberDto> lottoNumbers = new();
+    private ObservableCollection<RandomNumbersDto> randomNumbers = new();
 
     [ObservableProperty]
     private bool isLoading;
 
     [ObservableProperty]
+    private int ticketCount = 1;
+
+    [ObservableProperty]
     private int lastDrawsCount = 10;
 
     [ObservableProperty]
-    private LottoDateRangeOption selectedDateRange = new (LottoDateRange.OneMonth, AppResources.OneMonth);
+    private LottoDateRangeOption selectedDateRange = new(LottoDateRange.OneMonth, AppResources.OneMonth);
 
     public string ErrorMessage
     {
@@ -45,9 +48,15 @@ public partial class LottoNumbersViewModel(ISimpleMediator _simpleMediator) : Ob
     ];
 
     [RelayCommand]
-    private async Task GenerateNumbersAsync()
+    private async Task GenerateRandomNumbersAsync()
     {
         ErrorMessage = string.Empty;
+
+        if (TicketCount <= 0 || TicketCount > 10)
+        {
+            ErrorMessage = AppResources.TicketCountValidationError;
+            return;
+        }
 
         if (LastDrawsCount <= 0 || LastDrawsCount > 20)
         {
@@ -64,9 +73,10 @@ public partial class LottoNumbersViewModel(ISimpleMediator _simpleMediator) : Ob
         IsLoading = true;
         try
         {
-            var query = new GetLottoNumbersQuery
+            var query = new GetRandomNumbersQuery
             {
-                LastDrawsCount = LastDrawsCount,
+                TicketCount = TicketCount,
+                NumberCount = LastDrawsCount,
                 DateRange = SelectedDateRange.Value
             };
 
@@ -78,10 +88,10 @@ public partial class LottoNumbersViewModel(ISimpleMediator _simpleMediator) : Ob
                 return;
             }
 
-            LottoNumbers.Clear();
-            foreach (var number in result.Value)
+            RandomNumbers.Clear();
+            foreach (var numbers in result.Value)
             {
-                LottoNumbers.Add(number);
+                RandomNumbers.Add(numbers);
             }
         }
         finally

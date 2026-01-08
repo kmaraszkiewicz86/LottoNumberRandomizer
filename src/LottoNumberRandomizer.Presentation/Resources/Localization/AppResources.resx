@@ -156,4 +156,19 @@
   <data name="ApiErrorMessage" xml:space="preserve">
     <value>Failed to fetch data from Lotto API. Please try again later.</value>
   </data>
+  <data name="Percentage" xml:space="preserve">
+    <value>Percentage</value>
+  </data>
+  <data name="TicketCountValidationError" xml:space="preserve">
+    <value>Ticket Count is required</value>
+  </data>
+  <data name="RandomNumbers" xml:space="preserve">
+    <value>Random numbers page</value>
+  </data>
+  <data name="GenerateRandomNumbers" xml:space="preserve">
+    <value>Generate random numbers</value>
+  </data>
+  <data name="TicketCount" xml:space="preserve">
+    <value>Ticket count</value>
+  </data>
 </root>

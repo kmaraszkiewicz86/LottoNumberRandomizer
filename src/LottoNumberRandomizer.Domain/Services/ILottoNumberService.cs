@@ -7,4 +7,5 @@ namespace LottoNumberRandomizer.Infrastructure.Services;
 public interface ILottoNumberService
 {
     Task<Result<IEnumerable<LottoNumberDto>>> GetLatest(GetLottoNumbersQuery query);
+    Task<Result<IEnumerable<RandomNumbersDto>>> GetRandomNumbers(GetRandomNumbersQuery query);
 }

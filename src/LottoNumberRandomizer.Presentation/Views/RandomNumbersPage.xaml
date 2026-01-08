@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LottoNumberRandomizer.Presentation.ViewModels"
+             xmlns:model="clr-namespace:LottoNumberRandomizer.Model.DTOs;assembly=LottoNumberRandomizer.Model"
+             xmlns:res="clr-namespace:LottoNumberRandomizer.Presentation.Resources.Localization"
+             x:Class="LottoNumberRandomizer.Presentation.Views.RandomNumbersPage"
+             x:DataType="vm:RandomNumbersPageViewModel"
+             Title="{x:Static res:AppResources.RandomNumbers}">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*" Padding="20">
+        <Grid Grid.Row="0" ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="10">
+            <Label Grid.Row="0" Grid.Column="0" Text="{x:Static res:AppResources.TicketCount}" VerticalTextAlignment="Center" />
+            <Entry Grid.Row="0" Grid.Column="1" Text="{Binding TicketCount}" Keyboard="Numeric" />
+
+            <Label Grid.Row="1" Grid.Column="0" Text="{x:Static res:AppResources.LastDrawsCount}" VerticalTextAlignment="Center" />
+            <Entry Grid.Row="1" Grid.Column="1" Text="{Binding LastDrawsCount}" Keyboard="Numeric" />
+
+            <Label Grid.Row="2" Grid.Column="0" Text="{x:Static res:AppResources.DateFrom}" VerticalTextAlignment="Center" />
+            <Picker Grid.Row="2" Grid.Column="1"
+                    ItemsSource="{Binding AvailableDateRanges}"
+                    ItemDisplayBinding="{Binding DisplayName}"
+                    SelectedItem="{Binding SelectedDateRange, Mode=TwoWay}" />
+        </Grid>
+
+        <Button 
+            Grid.Row="1"
+            Text="{x:Static res:AppResources.GenerateRandomNumbers}"
+            Command="{Binding GenerateRandomNumbersCommand}"
+            HorizontalOptions="Center"
+            Margin="0,10,0,20" />
+
+        <Label
+            Grid.Row="2"
+            Text="{Binding ErrorMessage}"
+            TextColor="Red"
+            IsVisible="{Binding HasErrorMessage}"
+            Margin="0,5,0,0" />
+
+        <ActivityIndicator 
+            Grid.Row="3"
+            IsRunning="{Binding IsLoading}"
+            IsVisible="{Binding IsLoading}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+        
+        <CollectionView 
+            Grid.Row="4"
+            ItemsSource="{Binding RandomNumbers}"
+            IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+            SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:RandomNumbersDto">
+                    <Border Padding="15" 
+                            Margin="5" 
+                            Stroke="LightGray" 
+                            StrokeThickness="1"
+                            BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8"/>
+                        </Border.StrokeShape>
+                        <Label Text="{Binding GetRandomNumbers}" 
+                               FontSize="18" 
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center" />
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

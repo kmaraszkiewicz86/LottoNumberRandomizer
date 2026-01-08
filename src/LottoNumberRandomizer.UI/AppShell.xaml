@@ -11,4 +11,9 @@
         ContentTemplate="{DataTemplate views:LottoNumbersPage}"
         Route="LottoNumbersPage" />
 
+    <ShellContent
+        Title="Random Numbers"
+        ContentTemplate="{DataTemplate views:RandomNumbersPage}"
+        Route="RandomNumbersPage" />
+
 </Shell>

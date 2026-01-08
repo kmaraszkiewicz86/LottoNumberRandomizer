@@ -9,7 +9,5 @@ namespace LottoNumberRandomizer.ApplicationLayer.Queries;
 public class GetLottoNumbersQueryHandler(ILottoNumberService _lottoNumberService) : IAsyncQueryHandler<GetLottoNumbersQuery, Result<IEnumerable<LottoNumberDto>>>
 {
     public async Task<Result<IEnumerable<LottoNumberDto>>> HandleAsync(GetLottoNumbersQuery query, CancellationToken cancellationToken = default)
-    {
-        return await _lottoNumberService.GetLatest(query);
-    }
+        => await _lottoNumberService.GetLatest(query);
 }

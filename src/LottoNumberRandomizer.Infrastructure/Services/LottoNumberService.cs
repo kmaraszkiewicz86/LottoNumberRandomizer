@@ -42,9 +42,10 @@ public class LottoNumberService(HttpClient httpClient, IOptions<LottoApiSettings
                 .Select(nf => new LottoNumberDto 
                 { 
                     Number = nf.Number, 
-                    Count = nf.Frequency 
+                    NumberOfOccurrences = nf.NumberOfOccurrences,
+                    PercentOfOccurrences = nf.PercentOfOccurrences
                 })
-                .OrderBy(x => x.Number)
+                .OrderBy(x => x.PercentOfOccurrences)
                 .ToList();
             
             return Result.Ok<IEnumerable<LottoNumberDto>>(result);
@@ -60,6 +61,65 @@ public class LottoNumberService(HttpClient httpClient, IOptions<LottoApiSettings
         catch (Exception ex)
         {
             return Result.Fail<IEnumerable<LottoNumberDto>>($"Unexpected error: {ex.Message}");
+        }
+    }
+
+    public async Task<Result<IEnumerable<RandomNumbersDto>>> GetRandomNumbers(GetRandomNumbersQuery query)
+    {
+        try
+        {
+            // Pobierz statystyki czêstotliwoœci liczb
+            var latestResult = await GetLatest(new GetLottoNumbersQuery 
+            { 
+                LastDrawsCount = query.NumberCount,
+                DateRange = query.DateRange 
+            });
+            
+            if (latestResult.IsFailed)
+            {
+                return Result.Fail<IEnumerable<RandomNumbersDto>>(latestResult.Errors.First().Message);
+            }
+            
+            var numbersFrequency = latestResult.Value.ToList();
+            
+            // Przygotuj pule liczb wa¿one procentowo
+            var weightedNumbers = new List<int>();
+            foreach (var number in numbersFrequency)
+            {
+                // Im wy¿szy procent, tym wiêcej razy dodajemy liczbê do puli
+                int weight = (int)Math.Ceiling((decimal)number.PercentOfOccurrences * 10);
+                for (int i = 0; i < weight; i++)
+                {
+                    weightedNumbers.Add(number.Number);
+                }
+            }
+            
+            var random = new Random();
+            var results = new List<RandomNumbersDto>();
+            
+            // Generuj okreœlon¹ liczbê losowañ (zapewne query.TicketCount)
+            for (int i = 0; i < query.TicketCount; i++)
+            {
+                var selectedNumbers = new HashSet<int>();
+                
+                // Wybierz 6 unikalnych liczb (standardowe lotto)
+                while (selectedNumbers.Count < 6)
+                {
+                    var randomIndex = random.Next(weightedNumbers.Count);
+                    selectedNumbers.Add(weightedNumbers[randomIndex]);
+                }
+                
+                results.Add(new RandomNumbersDto 
+                { 
+                    Numbers = selectedNumbers.OrderBy(x => x).ToArray() 
+                });
+            }
+            
+            return Result.Ok<IEnumerable<RandomNumbersDto>>(results);
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail<IEnumerable<RandomNumbersDto>>($"Error generating random numbers: {ex.Message}");
         }
     }
 

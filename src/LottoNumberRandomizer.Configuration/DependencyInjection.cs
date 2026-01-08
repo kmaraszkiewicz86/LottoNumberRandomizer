@@ -32,10 +32,12 @@ public static class DependencyInjection
         
         // Register ViewModels
         services.AddTransient<LottoNumbersViewModel>();
-        
+        services.AddTransient<RandomNumbersPageViewModel>();
+
         // Register Views
         services.AddTransient<LottoNumbersPage>();
-        
+        services.AddTransient<RandomNumbersPage>();
+
         return services;
     }
 }

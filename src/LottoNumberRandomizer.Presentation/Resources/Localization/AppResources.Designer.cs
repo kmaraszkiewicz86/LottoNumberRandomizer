@@ -106,6 +106,15 @@ namespace LottoNumberRandomizer.Presentation.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate random numbers.
+        /// </summary>
+        internal static string GenerateRandomNumbers {
+            get {
+                return ResourceManager.GetString("GenerateRandomNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last draws count.
         /// </summary>
         internal static string LastDrawsCount {
@@ -160,11 +169,47 @@ namespace LottoNumberRandomizer.Presentation.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Percentage.
+        /// </summary>
+        internal static string Percentage {
+            get {
+                return ResourceManager.GetString("Percentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Random numbers page.
+        /// </summary>
+        internal static string RandomNumbers {
+            get {
+                return ResourceManager.GetString("RandomNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Six months.
         /// </summary>
         internal static string SixMonths {
             get {
                 return ResourceManager.GetString("SixMonths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ticket count.
+        /// </summary>
+        internal static string TicketCount {
+            get {
+                return ResourceManager.GetString("TicketCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ticket Count is required.
+        /// </summary>
+        internal static string TicketCountValidationError {
+            get {
+                return ResourceManager.GetString("TicketCountValidationError", resourceCulture);
             }
         }
         
