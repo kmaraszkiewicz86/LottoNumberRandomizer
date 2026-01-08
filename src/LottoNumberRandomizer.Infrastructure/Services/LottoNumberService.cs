@@ -33,12 +33,12 @@ public class LottoNumberService(HttpClient httpClient, IOptions<LottoApiSettings
                 PropertyNameCaseInsensitive = true 
             });
             
-            if (apiResponse?.NumbersFrequency == null)
+            if (apiResponse?.NumberFrequrency == null)
             {
                 return Result.Fail<IEnumerable<LottoNumberDto>>("Invalid API response format");
             }
             
-            var result = apiResponse.NumbersFrequency
+            var result = apiResponse.NumberFrequrency
                 .Select(nf => new LottoNumberDto 
                 { 
                     Number = nf.Number, 

@@ -15,8 +15,17 @@ public partial class RandomNumbersPageViewModel(ISimpleMediator _simpleMediator)
     [ObservableProperty]
     private ObservableCollection<RandomNumbersDto> randomNumbers = new();
 
-    [ObservableProperty]
-    private bool isLoading;
+    public bool IsLoading
+    {
+        get => field;
+        set
+        {
+            SetProperty(ref field, value);
+            OnPropertyChanged(nameof(IsLoaded));
+        }
+    }
+
+    public bool IsLoaded => !IsLoading;
 
     [ObservableProperty]
     private int ticketCount = 1;

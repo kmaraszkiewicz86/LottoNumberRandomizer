@@ -47,7 +47,7 @@
         <CollectionView 
             Grid.Row="4"
             ItemsSource="{Binding RandomNumbers}"
-            IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+            IsVisible="{Binding IsLoaded}"
             SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:RandomNumbersDto">

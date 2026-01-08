@@ -44,19 +44,19 @@
         <CollectionView 
             Grid.Row="5"
             ItemsSource="{Binding LottoNumbers}"
-            IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+            IsVisible="{Binding IsLoaded}"
             SelectionMode="None">
             <CollectionView.Header>
-                <Grid ColumnDefinitions="*,*" Padding="10" BackgroundColor="LightGray">
+                <Grid ColumnDefinitions="*,*,*" Padding="10" BackgroundColor="LightGray">
                     <Label Grid.Column="0" Text="{x:Static res:AppResources.Number}" FontAttributes="Bold" HorizontalTextAlignment="Center" />
                     <Label Grid.Column="1" Text="{x:Static res:AppResources.Count}" FontAttributes="Bold" HorizontalTextAlignment="Center" />
-                    <Label Grid.Column="1" Text="{x:Static res:AppResources.Percentage}" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                    <Label Grid.Column="2" Text="{x:Static res:AppResources.Percentage}" FontAttributes="Bold" HorizontalTextAlignment="Center" />
                 </Grid>
             </CollectionView.Header>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:LottoNumberDto">
-                    <Grid ColumnDefinitions="*,*" Padding="10" BackgroundColor="White">
-                        <BoxView Grid.ColumnSpan="2" Color="LightGray" HeightRequest="1" VerticalOptions="End" />
+                    <Grid ColumnDefinitions="*,*,*" Padding="10" BackgroundColor="White">
+                        <BoxView Grid.ColumnSpan="3" Color="LightGray" HeightRequest="1" VerticalOptions="End" />
                         <Label Grid.Column="0" Text="{Binding Number}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                         <Label Grid.Column="1" Text="{Binding NumberOfOccurrences}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                         <Label Grid.Column="2" Text="{Binding PercentOfOccurrences}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />

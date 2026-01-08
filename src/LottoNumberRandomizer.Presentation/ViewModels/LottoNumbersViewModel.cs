@@ -15,8 +15,17 @@ public partial class LottoNumbersViewModel(ISimpleMediator _simpleMediator) : Ob
     [ObservableProperty]
     private ObservableCollection<LottoNumberDto> lottoNumbers = new();
 
-    [ObservableProperty]
-    private bool isLoading;
+    public bool IsLoading
+    {
+        get => field;
+        set
+        {
+            SetProperty(ref field, value);
+            OnPropertyChanged(nameof(IsLoaded));
+        }
+    }
+
+    public bool IsLoaded => !IsLoading;
 
     [ObservableProperty]
     private int lastDrawsCount = 10;
