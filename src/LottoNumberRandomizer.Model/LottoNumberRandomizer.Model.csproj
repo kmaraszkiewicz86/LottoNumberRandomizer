@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentResults" Version="3.16.0" />
     <PackageReference Include="Kmaraszkiewicz86.SimpleCqrs" Version="0.1.3" />
   </ItemGroup>
 

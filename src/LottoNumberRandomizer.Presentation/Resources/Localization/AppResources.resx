@@ -153,4 +153,7 @@
   <data name="DateRangeValidationError" xml:space="preserve">
     <value>Date Range is required</value>
   </data>
+  <data name="ApiErrorMessage" xml:space="preserve">
+    <value>Failed to fetch data from Lotto API. Please try again later.</value>
+  </data>
 </root>

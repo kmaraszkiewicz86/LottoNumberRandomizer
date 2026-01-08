@@ -22,10 +22,19 @@ public partial class LottoNumbersViewModel(ISimpleMediator _simpleMediator) : Ob
     private int lastDrawsCount = 10;
 
     [ObservableProperty]
-    private LottoDateRangeOption selectedDateRange = default!;
+    private LottoDateRangeOption selectedDateRange = new(LottoDateRange.OneMonth, AppResources.OneMonth);
 
-    [ObservableProperty]
-    private string? errorMessage;
+    public string ErrorMessage
+    {
+        get => field;
+        set
+        {
+            SetProperty(ref field, value);
+            OnPropertyChanged(nameof(HasErrorMessage));
+        }
+    } = string.Empty;
+
+    public bool HasErrorMessage => !string.IsNullOrEmpty(ErrorMessage);
 
     public IReadOnlyList<LottoDateRangeOption> AvailableDateRanges { get; } =
     [
@@ -38,7 +47,7 @@ public partial class LottoNumbersViewModel(ISimpleMediator _simpleMediator) : Ob
     [RelayCommand]
     private async Task GenerateNumbersAsync()
     {
-        ErrorMessage = null;
+        ErrorMessage = string.Empty;
 
         if (LastDrawsCount <= 0 || LastDrawsCount > 20)
         {
@@ -62,9 +71,15 @@ public partial class LottoNumbersViewModel(ISimpleMediator _simpleMediator) : Ob
             };
 
             var result = await _simpleMediator.GetQueryAsync(query);
-            
+
+            if (result.IsFailed)
+            {
+                ErrorMessage = AppResources.ApiErrorMessage;
+                return;
+            }
+
             LottoNumbers.Clear();
-            foreach (var number in result)
+            foreach (var number in result.Value)
             {
                 LottoNumbers.Add(number);
             }

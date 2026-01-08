@@ -1,3 +1,4 @@
+using LottoNumberRandomizer.ApplicationLayer.Queries;
 using LottoNumberRandomizer.Infrastructure.Services;
 using LottoNumberRandomizer.Model.Configuration;
 using LottoNumberRandomizer.Model.Queries;
@@ -27,7 +28,7 @@ public static class DependencyInjection
         });
         
         // Register SimpleCqrs
-        services.ConfigureSimpleCqrs(typeof(GetLottoNumbersQuery).Assembly);
+        services.ConfigureSimpleCqrs(typeof(GetLottoNumbersQueryHandler).Assembly);
         
         // Register ViewModels
         services.AddTransient<LottoNumbersViewModel>();
