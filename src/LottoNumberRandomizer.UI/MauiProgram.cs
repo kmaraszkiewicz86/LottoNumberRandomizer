@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using LottoNumberRandomizer.Configuration;
+using System.Reflection;
+using Microsoft.Extensions.Configuration;
 
 namespace LottoNumberRandomizer.UI;
 
@@ -16,12 +18,22 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
+		// Load configuration from appsettings.json
+		var assembly = Assembly.GetExecutingAssembly();
+		using var stream = assembly.GetManifestResourceStream("LottoNumberRandomizer.UI.appsettings.json");
+		
+		var config = new ConfigurationBuilder()
+			.AddJsonStream(stream!)
+			.Build();
+		
+		builder.Configuration.AddConfiguration(config);
+
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
 
 		// Register all dependencies
-		builder.Services.AddLottoNumberRandomizer();
+		builder.Services.AddLottoNumberRandomizer(builder.Configuration);
 
 		return builder.Build();
 	}

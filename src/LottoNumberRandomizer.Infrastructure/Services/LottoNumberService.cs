@@ -1,44 +1,55 @@
+using LottoNumberRandomizer.Model.Configuration;
 using LottoNumberRandomizer.Model.DTOs;
+using LottoNumberRandomizer.Model.Enums;
 using LottoNumberRandomizer.Model.Queries;
+using Microsoft.Extensions.Options;
+using System.Text.Json;
 
 namespace LottoNumberRandomizer.Infrastructure.Services;
 
-public class LottoNumberService : ILottoNumberService
+public class LottoNumberService(HttpClient httpClient, IOptions<LottoApiSettings> options) : ILottoNumberService
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly LottoApiSettings _settings = options.Value;
 
-    public LottoNumberService(IHttpClientFactory httpClientFactory)
+    public async Task<IEnumerable<LottoNumberDto>> GetLatest(GetLottoNumbersQuery query)
     {
-        _httpClientFactory = httpClientFactory;
-    }
-
-    public async Task<IEnumerable<LottoNumberDto>> GenerateRandomNumbersAsync(GetLottoNumbersQuery query)
-    {
-        // Simulate async operation with HttpClient
-        var httpClient = _httpClientFactory.CreateClient();
+        var (dateFrom, dateTo) = CalculateDateRange(query.DateRange);
         
-        // Generate 10 random numbers and count their occurrences
-        var random = new Random();
-        var numbers = new List<int>();
+        var url = $"lotteries/draw-statistics/numbers-frequency?gameType={_settings.GameType}&dateFrom={dateFrom:yyyy-MM-dd}&dateTo={dateTo:yyyy-MM-dd}";
         
-        for (int i = 0; i < 10; i++)
-        {
-            numbers.Add(random.Next(1, 50));
-        }
+        var response = await httpClient.GetAsync(url);
+        response.EnsureSuccessStatusCode();
         
-        // Group by number and count occurrences
-        var result = numbers
-            .GroupBy(n => n)
-            .Select(g => new LottoNumberDto 
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        var apiResponse = JsonSerializer.Deserialize<LottoApiResponse>(jsonResponse, new JsonSerializerOptions 
+        { 
+            PropertyNameCaseInsensitive = true 
+        });
+        
+        var result = apiResponse?.NumbersFrequency?
+            .Select(nf => new LottoNumberDto 
             { 
-                Number = g.Key, 
-                Count = g.Count() 
+                Number = nf.Number, 
+                Count = nf.Frequency 
             })
             .OrderBy(x => x.Number)
-            .ToList();
-        
-        await Task.CompletedTask;
+            .ToList() ?? new List<LottoNumberDto>();
         
         return result;
+    }
+
+    private (DateTime dateFrom, DateTime dateTo) CalculateDateRange(LottoDateRange dateRange)
+    {
+        var dateTo = DateTime.Now;
+        var dateFrom = dateRange switch
+        {
+            LottoDateRange.OneMonth => dateTo.AddMonths(-1),
+            LottoDateRange.TwoMonths => dateTo.AddMonths(-2),
+            LottoDateRange.SixMonths => dateTo.AddMonths(-6),
+            LottoDateRange.OneYear => dateTo.AddYears(-1),
+            _ => dateTo.AddMonths(-1)
+        };
+        
+        return (dateFrom, dateTo);
     }
 }

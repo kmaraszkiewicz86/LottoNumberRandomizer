@@ -9,6 +9,6 @@ public class GetLottoNumbersQueryHandler(ILottoNumberService _lottoNumberService
 {
     public async Task<IEnumerable<LottoNumberDto>> HandleAsync(GetLottoNumbersQuery query, CancellationToken cancellationToken = default)
     {
-        return await _lottoNumberService.GenerateRandomNumbersAsync(query);
+        return await _lottoNumberService.GetLatest(query);
     }
 }
