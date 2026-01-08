@@ -30,8 +30,11 @@ public partial class LottoNumbersViewModel(ISimpleMediator _simpleMediator) : Ob
     [ObservableProperty]
     private int lastDrawsCount = 10;
 
-    [ObservableProperty]
-    private LottoDateRangeOption selectedDateRange = new (LottoDateRange.OneMonth, AppResources.OneMonth);
+    public LottoDateRangeOption SelectedDateRange
+    {
+        get => field ?? AvailableDateRanges.First(x => x.Value == LottoDateRange.TwoMonths);
+        set => SetProperty(ref field, value);
+    }
 
     public string ErrorMessage
     {
@@ -75,7 +78,6 @@ public partial class LottoNumbersViewModel(ISimpleMediator _simpleMediator) : Ob
         {
             var query = new GetLottoNumbersQuery
             {
-                LastDrawsCount = LastDrawsCount,
                 DateRange = SelectedDateRange.Value
             };
 

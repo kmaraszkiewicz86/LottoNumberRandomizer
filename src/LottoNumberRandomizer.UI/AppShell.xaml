@@ -6,14 +6,16 @@
     xmlns:views="clr-namespace:LottoNumberRandomizer.Presentation.Views;assembly=LottoNumberRandomizer.Presentation"
     Title="LottoNumberRandomizer">
 
-    <ShellContent
-        Title="Lotto Numbers"
-        ContentTemplate="{DataTemplate views:LottoNumbersPage}"
-        Route="LottoNumbersPage" />
+    <TabBar>
+        <ShellContent
+            Title="Lotto Numbers"
+            ContentTemplate="{DataTemplate views:LottoNumbersPage}"
+            Route="LottoNumbersPage" />
 
-    <ShellContent
-        Title="Random Numbers"
-        ContentTemplate="{DataTemplate views:RandomNumbersPage}"
-        Route="RandomNumbersPage" />
+        <ShellContent
+            Title="Random Numbers"
+            ContentTemplate="{DataTemplate views:RandomNumbersPage}"
+            Route="RandomNumbersPage" />
+    </TabBar>
 
 </Shell>

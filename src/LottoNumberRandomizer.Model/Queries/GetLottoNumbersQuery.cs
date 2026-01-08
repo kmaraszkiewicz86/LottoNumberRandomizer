@@ -7,7 +7,5 @@ namespace LottoNumberRandomizer.Model.Queries;
 
 public class GetLottoNumbersQuery : IQuery<Result<IEnumerable<LottoNumberDto>>>
 {
-    public int LastDrawsCount { get; init; }
-
     public LottoDateRange DateRange { get; init; }
 }

@@ -33,8 +33,11 @@ public partial class RandomNumbersPageViewModel(ISimpleMediator _simpleMediator)
     [ObservableProperty]
     private int lastDrawsCount = 10;
 
-    [ObservableProperty]
-    private LottoDateRangeOption selectedDateRange = new(LottoDateRange.OneMonth, AppResources.OneMonth);
+    public LottoDateRangeOption SelectedDateRange
+    {
+        get => field ?? AvailableDateRanges.First(x => x.Value == LottoDateRange.TwoMonths);
+        set => SetProperty(ref field, value);
+    }
 
     public string ErrorMessage
     {

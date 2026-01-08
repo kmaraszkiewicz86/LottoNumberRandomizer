@@ -53,16 +53,16 @@
                 <DataTemplate x:DataType="model:RandomNumbersDto">
                     <Border Padding="15" 
                             Margin="5" 
-                            Stroke="LightGray" 
-                            StrokeThickness="1"
-                            BackgroundColor="White">
+                            Stroke="DarkGray" 
+                            StrokeThickness="1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="8"/>
                         </Border.StrokeShape>
                         <Label Text="{Binding GetRandomNumbers}" 
                                FontSize="18" 
                                FontAttributes="Bold"
-                               HorizontalTextAlignment="Center" />
+                               HorizontalTextAlignment="Center"
+                               TextColor="LightGray" />
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

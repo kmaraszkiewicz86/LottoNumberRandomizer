@@ -45,7 +45,7 @@ public class LottoNumberService(HttpClient httpClient, IOptions<LottoApiSettings
                     NumberOfOccurrences = nf.NumberOfOccurrences,
                     PercentOfOccurrences = nf.PercentOfOccurrences
                 })
-                .OrderBy(x => x.PercentOfOccurrences)
+                .OrderByDescending(x => x.PercentOfOccurrences)
                 .ToList();
             
             return Result.Ok<IEnumerable<LottoNumberDto>>(result);
@@ -70,8 +70,7 @@ public class LottoNumberService(HttpClient httpClient, IOptions<LottoApiSettings
         {
             // Pobierz statystyki czêstotliwoœci liczb
             var latestResult = await GetLatest(new GetLottoNumbersQuery 
-            { 
-                LastDrawsCount = query.NumberCount,
+            {
                 DateRange = query.DateRange 
             });
             
