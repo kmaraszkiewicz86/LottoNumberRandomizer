@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Splash theme can stay Material-based; MAUI wires it for the launch screen -->
+  <style name="Maui.SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+  </style>
+
+  <!-- Main application theme used by MainActivity -->
+  <style name="Maui.MainTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+
+    <!-- Ensure Material text appearances are available to avoid IllegalArgumentException -->
+    <item name="textAppearanceBody1">@style/TextAppearance.MaterialComponents.Body1</item>
+    <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
+    <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
+  </style>
+</resources>

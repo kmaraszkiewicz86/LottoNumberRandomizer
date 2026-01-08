@@ -42,6 +42,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Resources\values\styles.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<EmbeddedResource Include="appsettings.json" />
 	</ItemGroup>
 
