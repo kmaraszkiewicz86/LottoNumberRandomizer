@@ -19,6 +19,9 @@ public static class DependencyInjection
         
         services.Configure<LottoApiSettings>(configuration.GetSection(LottoApiSettings.SectionName));
         
+        // Register Memory Cache for caching API responses
+        services.AddMemoryCache();
+        
         // Register HttpClient with LottoNumberService
         services.AddHttpClient<ILottoNumberService, LottoNumberService>(client =>
         {

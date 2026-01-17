@@ -3,20 +3,31 @@ using LottoNumberRandomizer.Model.Configuration;
 using LottoNumberRandomizer.Model.DTOs;
 using LottoNumberRandomizer.Model.Enums;
 using LottoNumberRandomizer.Model.Queries;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
 
 namespace LottoNumberRandomizer.Infrastructure.Services;
 
-public class LottoNumberService(HttpClient httpClient, IOptions<LottoApiSettings> options) : ILottoNumberService
+public class LottoNumberService(HttpClient httpClient, IOptions<LottoApiSettings> options, IMemoryCache memoryCache) : ILottoNumberService
 {
     private readonly LottoApiSettings _settings = options.Value;
+    private static readonly TimeSpan CacheDuration = TimeSpan.FromDays(1);
 
     public async Task<Result<IEnumerable<LottoNumberDto>>> GetLatest(GetLottoNumbersQuery query)
     {
         try
         {
             var (dateFrom, dateTo) = CalculateDateRange(query.DateRange);
+            
+            // Generate cache key based on date range and game type
+            var cacheKey = $"LottoNumbers_{_settings.GameType}_{query.DateRange}_{dateFrom:yyyy-MM-dd}_{dateTo:yyyy-MM-dd}";
+            
+            // Try to get data from cache
+            if (memoryCache.TryGetValue<IEnumerable<LottoNumberDto>>(cacheKey, out var cachedResult))
+            {
+                return Result.Ok(cachedResult!);
+            }
             
             var url = $"lotteries/draw-statistics/numbers-frequency?gameType={_settings.GameType}&dateFrom={dateFrom:yyyy-MM-dd}&dateTo={dateTo:yyyy-MM-dd}";
             
@@ -48,6 +59,9 @@ public class LottoNumberService(HttpClient httpClient, IOptions<LottoApiSettings
                 .OrderByDescending(x => x.PercentOfOccurrences)
                 .ToList();
             
+            // Store result in cache with 1-day expiration
+            memoryCache.Set(cacheKey, result, CacheDuration);
+            
             return Result.Ok<IEnumerable<LottoNumberDto>>(result);
         }
         catch (HttpRequestException ex)
@@ -68,7 +82,7 @@ public class LottoNumberService(HttpClient httpClient, IOptions<LottoApiSettings
     {
         try
         {
-            // Pobierz statystyki czêstotliwoœci liczb
+            // Get number frequency statistics
             var latestResult = await GetLatest(new GetLottoNumbersQuery 
             {
                 DateRange = query.DateRange 
@@ -81,11 +95,11 @@ public class LottoNumberService(HttpClient httpClient, IOptions<LottoApiSettings
             
             var numbersFrequency = latestResult.Value.ToList();
             
-            // Przygotuj pule liczb wa¿one procentowo
+            // Prepare a weighted pool of numbers based on their percentage
             var weightedNumbers = new List<int>();
             foreach (var number in numbersFrequency)
             {
-                // Im wy¿szy procent, tym wiêcej razy dodajemy liczbê do puli
+                // The higher the percentage, the more times we add the number to the pool
                 int weight = (int)Math.Ceiling((decimal)number.PercentOfOccurrences * 10);
                 for (int i = 0; i < weight; i++)
                 {
@@ -96,12 +110,12 @@ public class LottoNumberService(HttpClient httpClient, IOptions<LottoApiSettings
             var random = new Random();
             var results = new List<RandomNumbersDto>();
             
-            // Generuj okreœlon¹ liczbê losowañ (zapewne query.TicketCount)
+            // Generate the specified number of random draws (query.TicketCount)
             for (int i = 0; i < query.TicketCount; i++)
             {
                 var selectedNumbers = new HashSet<int>();
                 
-                // Wybierz 6 unikalnych liczb (standardowe lotto)
+                // Select 6 unique numbers (standard lotto)
                 while (selectedNumbers.Count < 6)
                 {
                     var randomIndex = random.Next(weightedNumbers.Count);
