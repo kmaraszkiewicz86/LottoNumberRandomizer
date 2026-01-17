@@ -24,9 +24,9 @@ public class LottoNumberService(HttpClient httpClient, IOptions<LottoApiSettings
             var cacheKey = $"LottoNumbers_{_settings.GameType}_{query.DateRange}_{dateFrom:yyyy-MM-dd}_{dateTo:yyyy-MM-dd}";
             
             // Try to get data from cache
-            if (memoryCache.TryGetValue<IEnumerable<LottoNumberDto>>(cacheKey, out var cachedResult))
+            if (memoryCache.TryGetValue<IEnumerable<LottoNumberDto>>(cacheKey, out var cachedResult) && cachedResult != null)
             {
-                return Result.Ok(cachedResult!);
+                return Result.Ok(cachedResult);
             }
             
             var url = $"lotteries/draw-statistics/numbers-frequency?gameType={_settings.GameType}&dateFrom={dateFrom:yyyy-MM-dd}&dateTo={dateTo:yyyy-MM-dd}";
